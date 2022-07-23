@@ -90,4 +90,16 @@ public class NettyClient {
 
         return null;
     }
+
+    public static void main(String[] args) {
+        RequestDto requestDto = RequestDto.builder()
+                .interfaceName("loginService")
+                .method("login").build();
+        NettyClient nettyClient = new NettyClient("127.0.0.1", 8888);
+        for (int i = 0; i < 3; i++) {
+            nettyClient.sendMessage(requestDto);
+        }
+        ResponseDto responseDto = nettyClient.sendMessage(requestDto);
+        System.out.println(responseDto.toString());
+    }
 }
